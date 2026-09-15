@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praveen Reddy — Security Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#10161d;
+    --panel:#161e27;
+    --panel-2:#1d2733;
+    --hair:#2b3644;
+    --paper:#eef1f4;
+    --muted:#8b97a6;
+    --brass:#c99a53;
+    --brass-dim:#8a6c3c;
+    --signal:#5fa3c9;
+    --ok:#7fae72;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', Arial, sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; margin:0;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  /* ---- Nav ---- */
+  nav{
+    position:sticky; top:0; z-index:20;
+    background:rgba(16,22,29,0.9);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--hair);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:18px; letter-spacing:0.2px;}
+  .brand span{color:var(--brass);}
+  .navlinks{display:flex; gap:28px; font-size:14px; color:var(--muted);}
+  .navlinks a{text-decoration:none; transition:color .15s ease;}
+  .navlinks a:hover{color:var(--paper);}
+  .nav-cta{
+    border:1px solid var(--brass-dim); color:var(--brass); padding:8px 16px;
+    border-radius:3px; text-decoration:none; font-size:13px; font-family:'IBM Plex Mono',monospace;
+    transition:background .15s ease, color .15s ease;
+  }
+  .nav-cta:hover{background:var(--brass); color:#191008;}
+
+  /* ---- Hero ---- */
+  header.hero{padding:76px 0 64px; border-bottom:1px solid var(--hair); position:relative; overflow:hidden;}
+  .hero-grid{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:48px; align-items:start;
+  }
+  .kicker{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--brass);
+    letter-spacing:0.5px; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .kicker::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px rgba(127,174,114,0.18); display:inline-block;}
+  .hero h1{font-size:46px; line-height:1.12; color:var(--paper); opacity:0; transform:translateY(10px); animation:rise .6s ease forwards;}
+  .hero h1 em{font-style:normal; color:var(--brass);}
+  .hero .role{
+    margin-top:14px; font-size:17px; color:#c3cbd4; max-width:46ch;
+    opacity:0; transform:translateY(10px); animation:rise .6s ease .1s forwards;
+  }
+  .hero .sub{margin-top:18px; color:var(--muted); font-size:14.5px; max-width:52ch;
+    opacity:0; transform:translateY(10px); animation:rise .6s ease .18s forwards;}
+  @keyframes rise{to{opacity:1; transform:translateY(0);}}
+  .hero-ctas{margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;
+    opacity:0; transform:translateY(10px); animation:rise .6s ease .26s forwards;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; padding:11px 20px;
+    border-radius:3px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .12s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{background:var(--brass); color:#191008; border:1px solid var(--brass);}
+  .btn-primary:hover{transform:translateY(-1px);}
+  .btn-ghost{border:1px solid var(--hair); color:var(--paper);}
+  .btn-ghost:hover{border-color:var(--signal); color:var(--signal);}
+
+  /* Badge card */
+  .badge{
+    background:var(--panel); border:1px solid var(--hair); border-radius:6px;
+    padding:26px; position:relative;
+    opacity:0; transform:translateY(14px); animation:rise .7s ease .2s forwards;
+  }
+  .badge::before{
+    content:""; position:absolute; inset:0; border-radius:6px; padding:1px;
+    background:linear-gradient(135deg, rgba(201,154,83,0.5), transparent 40%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+  }
+  .badge-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:18px;}
+  .badge-label{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--muted); letter-spacing:1px;}
+  .badge-id{font-family:'IBM Plex Mono', monospace; font-size:10.5px; color:var(--brass);}
+  .avatar-ring{
+    width:56px; height:56px; border-radius:50%; border:1.5px solid var(--brass-dim);
+    display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk';
+    font-weight:600; font-size:19px; color:var(--brass); margin-bottom:14px;
+  }
+  .badge h3{font-size:19px; color:var(--paper);}
+  .badge .badge-role{font-size:13px; color:var(--muted); margin-top:2px;}
+  .badge hr{border:none; border-top:1px dashed var(--hair); margin:18px 0;}
+  .stat-row{display:flex; justify-content:space-between; margin-bottom:10px; font-size:13px;}
+  .stat-row .k{color:var(--muted);}
+  .stat-row .v{font-family:'IBM Plex Mono', monospace; color:var(--paper);}
+  .clearance{display:flex; gap:6px; margin-top:16px;}
+  .clearance span{
+    flex:1; text-align:center; padding:6px 4px; border-radius:3px; font-size:10.5px;
+    font-family:'IBM Plex Mono', monospace; border:1px solid var(--hair); color:var(--muted);
+  }
+  .clearance span.on{border-color:var(--signal); color:var(--signal); background:rgba(95,163,201,0.08);}
+
+  /* ---- Section shell ---- */
+  section{padding:64px 0; border-bottom:1px solid var(--hair);}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:34px;}
+  .sec-head .idx{font-family:'IBM Plex Mono', monospace; color:var(--brass-dim); font-size:14px;}
+  .sec-head h2{font-size:26px; color:var(--paper);}
+  .sec-lede{color:var(--muted); font-size:14.5px; max-width:60ch; margin:10px 0 0;}
+
+  /* About */
+  .about-body{display:grid; grid-template-columns:1.4fr 1fr; gap:50px;}
+  .about-body p{color:#c3cbd4; font-size:15.5px; max-width:60ch;}
+  .about-body p + p{margin-top:14px;}
+  .focus-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .focus-list li{
+    border-left:2px solid var(--brass-dim); padding:2px 0 2px 14px; font-size:13.5px; color:#c3cbd4;
+  }
+  .focus-list b{display:block; color:var(--paper); font-size:14.5px; margin-bottom:2px; font-family:'Space Grotesk'; font-weight:500;}
+
+  /* Experience timeline */
+  .tl{position:relative; padding-left:26px; border-left:1px solid var(--hair);}
+  .tl-item{position:relative; padding-bottom:38px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{
+    content:""; position:absolute; left:-31px; top:4px; width:10px; height:10px; border-radius:50%;
+    background:var(--ink); border:2px solid var(--brass);
+  }
+  .tl-item.current::before{background:var(--brass);}
+  .tl-head{display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; align-items:baseline;}
+  .tl-head h3{font-size:18px; color:var(--paper);}
+  .tl-date{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--brass);}
+  .tl-loc{color:var(--muted); font-size:13px; margin-top:3px;}
+  .tl ul{margin:14px 0 0; padding-left:18px; color:#c3cbd4; font-size:14px;}
+  .tl ul li{margin-bottom:6px;}
+  .tag-current{
+    font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--ok);
+    border:1px solid rgba(127,174,114,0.4); border-radius:3px; padding:2px 7px; margin-left:8px;
+  }
+
+  /* Certifications */
+  .cert-groups{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1px; background:var(--hair); border:1px solid var(--hair); border-radius:6px; overflow:hidden;}
+  .cert-col{background:var(--panel); padding:22px;}
+  .cert-col h4{font-family:'Space Grotesk'; font-size:14.5px; color:var(--brass); font-weight:500; margin-bottom:14px; display:flex; align-items:center; justify-content:space-between;}
+  .cert-col h4 .count{font-family:'IBM Plex Mono'; font-size:11px; color:var(--muted); font-weight:400;}
+  .cert-col ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px;}
+  .cert-col li{font-size:13px; color:#c3cbd4; padding-left:14px; position:relative;}
+  .cert-col li::before{content:"›"; position:absolute; left:0; color:var(--signal);}
+  .honor-strip{margin-top:20px; display:flex; gap:16px; flex-wrap:wrap;}
+  .honor-chip{
+    display:flex; align-items:center; gap:10px; background:var(--panel-2); border:1px solid var(--hair);
+    border-radius:6px; padding:12px 16px; font-size:13px; color:#c3cbd4; flex:1; min-width:260px;
+  }
+  .honor-chip .dot{width:8px; height:8px; border-radius:50%; background:var(--brass); flex-shrink:0;}
+  .honor-chip b{color:var(--paper); font-family:'Space Grotesk'; font-weight:500;}
+
+  /* Skills */
+  .skill-rows{display:flex; flex-direction:column; gap:18px;}
+  .skill-row{display:grid; grid-template-columns:170px 1fr; gap:20px; align-items:start;}
+  .skill-row .cat{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); padding-top:6px;}
+  .pills{display:flex; flex-wrap:wrap; gap:8px;}
+  .pill{
+    border:1px solid var(--hair); color:#c3cbd4; font-size:12.5px; padding:6px 12px; border-radius:3px;
+    background:var(--panel);
+  }
+
+  /* Education */
+  .edu-card{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;
+    background:var(--panel); border:1px solid var(--hair); border-radius:6px; padding:20px 24px; margin-bottom:12px;
+  }
+  .edu-card .deg{font-family:'Space Grotesk'; font-size:15px; color:var(--paper);}
+  .edu-card .inst{font-size:13px; color:var(--muted); margin-top:3px;}
+  .edu-card .pct{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--brass);}
+
+  /* Contact */
+  footer{padding:60px 0 50px;}
+  .contact-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:end;}
+  footer h2{font-size:28px; color:var(--paper); max-width:16ch;}
+  .contact-list{display:flex; flex-direction:column; gap:10px;}
+  .contact-row{
+    display:flex; justify-content:space-between; border-bottom:1px solid var(--hair); padding:10px 0;
+    font-size:14px;
+  }
+  .contact-row .k{color:var(--muted); font-family:'IBM Plex Mono', monospace; font-size:12px;}
+  .contact-row .v{color:var(--paper);}
+  .foot-bottom{margin-top:44px; display:flex; justify-content:space-between; color:var(--muted); font-size:12px; font-family:'IBM Plex Mono', monospace; flex-wrap:wrap; gap:10px;}
+
+  @media (max-width:760px){
+    .wrap{padding:0 20px;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:33px;}
+    .about-body{grid-template-columns:1fr;}
+    .cert-groups{grid-template-columns:1fr;}
+    .skill-row{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">PR<span>_</span>SEC</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
+    </div>
+    <a class="nav-cta" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">Available for security engineering roles</p>
+      <h1>Building the access layer<br>enterprises trust — <em>Zero Trust</em>, gateways, endpoints.</h1>
+      <p class="role">R. Praveen Reddy — Senior Security Engineer at Intime Solutions. Five years deep in secure remote access, identity, and network defence for enterprise environments.</p>
+      <p class="sub">Recognised as Accops Technical Champion. Certified across Fortinet, CyberArk, Accops, Silverfort, Trellix, and Trend Micro.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="mailto:praveenr@intimesol.com">Get in touch</a>
+        <a class="btn btn-ghost" href="#certifications">View certifications</a>
+      </div>
+    </div>
+
+    <div class="badge">
+      <div class="badge-top">
+        <span class="badge-label">ACCESS BADGE</span>
+        <span class="badge-id">ID · PR-2026-SR</span>
+      </div>
+      <div class="avatar-ring">PR</div>
+      <h3>Praveen Reddy</h3>
+      <p class="badge-role">Senior Security Engineer</p>
+      <hr>
+      <div class="stat-row"><span class="k">Employer</span><span class="v">Intime Solutions</span></div>
+      <div class="stat-row"><span class="k">Location</span><span class="v">Bengaluru, IN</span></div>
+      <div class="stat-row"><span class="k">Experience</span><span class="v">5+ years</span></div>
+      <div class="stat-row"><span class="k">Certifications</span><span class="v">19 active</span></div>
+      <div class="clearance">
+        <span class="on">ZTNA</span>
+        <span class="on">PAM</span>
+        <span class="on">NAC</span>
+        <span>SOC</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">01</span><h2>About</h2></div>
+    <div class="about-body">
+      <div>
+        <p>Praveen works at the layer where identity meets network — deciding who and what gets in, and proving it holds up under audit. At Intime Solutions, that has meant standing up secure remote-access gateways, enforcing multi-factor authentication across Active Directory and local accounts, and closing the gap between "connected" and "trusted."</p>
+        <p>He was promoted to Senior Security Engineer in 2026 after five years as Technical Associate, where he built a reputation for troubleshooting the access issues nobody else wanted to touch — gateway disconnections, private connector routing, login anomalies — and was named a Technical Champion by Accops for it.</p>
+      </div>
+      <ul class="focus-list">
+        <li><b>Zero Trust access</b>Device ID ACLs, HySecure gateways, ZTNA architecture</li>
+        <li><b>Identity &amp; PAM</b>Active Directory, Group Policy, CyberArk, Silverfort</li>
+        <li><b>Endpoint &amp; network defence</b>Fortinet, Trend Micro, Cloudflare WAF, Sophos</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">02</span><h2>Experience</h2></div>
+    <div class="tl">
+      <div class="tl-item current">
+        <div class="tl-head">
+          <h3>Senior Security Engineer — Intime Solutions <span class="tag-current">current</span></h3>
+          <span class="tl-date">Apr 2026 — Present</span>
+        </div>
+        <div class="tl-loc">Bengaluru South, Karnataka · On-site</div>
+        <ul>
+          <li>Design, implement, and support enterprise network and cybersecurity solutions across multiple customer environments.</li>
+          <li>Lead security engineering initiatives spanning Zero Trust access, secure gateway infrastructure, and endpoint protection.</li>
+        </ul>
+      </div>
+      <div class="tl-item">
+        <div class="tl-head">
+          <h3>Technical Associate — Intime Solutions</h3>
+          <span class="tl-date">Aug 2021 — Jul 2026</span>
+        </div>
+        <div class="tl-loc">Bengaluru, Karnataka · Remote</div>
+        <ul>
+          <li>Ran Accops HySecure Gateway for secure remote access via Turbo Tunnel and Reverse Proxy; configured Accops HyID for MFA across AD and local users.</li>
+          <li>Managed Device ID ACLs and Zero Trust access controls; published and maintained internal web and RDP applications through HySecure.</li>
+          <li>Troubleshot gateway disconnections, private connector routing, and login anomalies; supported version upgrades and post-upgrade validation.</li>
+          <li>Administered Windows Server (2012–2022) and Active Directory: user/group creation, OU design, Group Policy.</li>
+          <li>Maintained endpoint security with Trend Micro and Accops, including incident response; documented SOPs and tested disaster recovery plans.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">03</span><h2>Certifications</h2></div>
+    <p class="sec-lede">Nineteen active certifications across the platforms Praveen deploys day to day — access gateways, identity, endpoint, and network defence.</p>
+    <div class="cert-groups">
+      <div class="cert-col">
+        <h4>Accops <span class="count">04</span></h4>
+        <ul>
+          <li>Certified Advanced Professional — ZTNA Gateway</li>
+          <li>Certified Advanced Professional (ACAP — Secure Gateway)</li>
+          <li>Certified Sales Professional</li>
+          <li>Certified Technical Professional — Fundamental 2024</li>
+        </ul>
+      </div>
+      <div class="cert-col">
+        <h4>Fortinet <span class="count">03</span></h4>
+        <ul>
+          <li>NSE 3 — FortiGate 7.6 Operator</li>
+          <li>NSE 2 — Technical Introduction to Cybersecurity</li>
+          <li>NSE 1 — Introduction to the Threat Landscape</li>
+        </ul>
+      </div>
+      <div class="cert-col">
+        <h4>Silverfort <span class="count">03</span></h4>
+        <ul>
+          <li>Unified Professional Certification</li>
+          <li>Unified Associate Certification</li>
+          <li>Fundamentals Certification</li>
+        </ul>
+      </div>
+      <div class="cert-col">
+        <h4>Trellix <span class="count">04</span></h4>
+        <ul>
+          <li>Data Security — Technical Specialist</li>
+          <li>Email Security — Technical Specialist</li>
+          <li>Endpoint Security — Technical Specialist</li>
+          <li>XDR (Helix Connect) — Technical Specialist</li>
+        </ul>
+      </div>
+      <div class="cert-col">
+        <h4>Trend Vision One <span class="count">04</span></h4>
+        <ul>
+          <li>Platform — Advanced</li>
+          <li>Endpoint Security — Advanced</li>
+          <li>Cyber Risk Exposure Management — Advanced</li>
+          <li>Email &amp; Collaboration Security — Practitioner</li>
+        </ul>
+      </div>
+    </div>
+    <div class="honor-strip">
+      <div class="honor-chip"><span class="dot"></span><span><b>CyberArk PAM</b> — Certified Pre-Sales Engineer (CPE)</span></div>
+      <div class="honor-chip"><span class="dot"></span><span><b>Technical Champion</b> — recognised by Accops</span></div>
+      <div class="honor-chip"><span class="dot"></span><span><b>Trend Micro</b> — Partner Ninja Program participant</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">04</span><h2>Skills</h2></div>
+    <div class="skill-rows">
+      <div class="skill-row">
+        <div class="cat">SECURITY &amp; ACCESS</div>
+        <div class="pills">
+          <span class="pill">Zero Trust / ZTNA</span>
+          <span class="pill">Accops HySecure &amp; HyID</span>
+          <span class="pill">CyberArk PAM</span>
+          <span class="pill">Silverfort</span>
+          <span class="pill">Fortinet FortiGate</span>
+          <span class="pill">Zscaler</span>
+          <span class="pill">Cloudflare WAF</span>
+          <span class="pill">Sophos</span>
+          <span class="pill">Trellix</span>
+          <span class="pill">Trend Vision One</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="cat">INFRASTRUCTURE</div>
+        <div class="pills">
+          <span class="pill">Microsoft Active Directory</span>
+          <span class="pill">Group Policy</span>
+          <span class="pill">Windows Server 2012–2022</span>
+          <span class="pill">WSUS</span>
+          <span class="pill">ManageEngine</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="cat">PRACTICE</div>
+        <div class="pills">
+          <span class="pill">Technical Support (L1/L2)</span>
+          <span class="pill">Customer Experience Management</span>
+          <span class="pill">SOP &amp; Documentation</span>
+          <span class="pill">Disaster Recovery Planning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="sec-head"><span class="idx">05</span><h2>Education</h2></div>
+    <div class="edu-card">
+      <div>
+        <div class="deg">Bachelor of Science, Computer Science</div>
+        <div class="inst">North East Frontier Technical University (NEFTU)</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="deg">HSC</div>
+        <div class="inst">Narayana Secondary School</div>
+      </div>
+      <div class="pct">76.67%</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="deg">SSLC</div>
+        <div class="inst">Sri Takshasila School</div>
+      </div>
+      <div class="pct">88.01%</div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <h2>Let's talk about your access &amp; security stack.</h2>
+      <div class="contact-list">
+        <div class="contact-row"><span class="k">EMAIL</span><span class="v">praveenr@intimesol.com</span></div>
+        <div class="contact-row"><span class="k">PHONE</span><span class="v">+91 96064 85976</span></div>
+        <div class="contact-row"><span class="k">LOCATION</span><span class="v">Bengaluru, Karnataka, India</span></div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>R. PRAVEEN REDDY — SECURITY ENGINEER</span>
+      <span>Portfolio v2026.1</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
